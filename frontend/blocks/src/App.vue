@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useBlockStore } from "./stores/blocks";
+
 import { ref } from "vue";
 
 const blocks = useBlockStore();
@@ -19,7 +20,7 @@ const currentSideLength = ref(0.0);
 </script>
 
 <template>
-  <div class="w-screen h-screen bg-slate-950">
+  <div class="w-screen h-full bg-slate-950">
     <p
       class="text-white text-center pt-10 bg-slate-900 text-6xl tracking-widest font-extrabold"
     >
@@ -79,11 +80,18 @@ const currentSideLength = ref(0.0);
         <p class="text-white text-center text-3xl tracking-widest font-bold">
           Block Information
         </p>
-        <p>Blocks: {{ blocks.blockList }}</p>
-        <p>Number of blocks: {{ blocks.getNumberOfBlocks }}</p>
-        <div class="grid grid-cols-12 gap-3">
-          <div v-for="block in blocks.blockList" style="width: {{ block.sideLength }};" class="bg-green-500 rounded-lg text-black text-center">
-            <p>{{ block.sideLength }}</p>
+        <p class="text-white text-center text-lg font-bold">
+          Number of blocks: {{ blocks.getNumberOfBlocks }}
+        </p>
+        <div class="flex flex-row flex-wrap gap-3 justify-center">
+          <div
+            v-for="block in blocks.blockList"
+            class="w-3/12 bg-green-500 rounded-lg text-center text-white text-sm p-10 shadow-md shadow-green-400 overflow-hidden"
+          >
+            <p>Block ID:</p>
+            <p>{{ block.id }}</p>
+            <hr class="my-2" />
+            <p>SideLength: {{ block.sideLength }}</p>
           </div>
         </div>
       </div>
@@ -99,7 +107,7 @@ const currentSideLength = ref(0.0);
         class="input input-bordered input-md input-success w-full text-lg font-light"
         v-model="currentSideLength"
       />
-      <p>value is: {{ currentSideLength }}</p>
+      <!-- <p>value is: {{ currentSideLength }}</p> -->
       <div class="modal-action">
         <button
           class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
