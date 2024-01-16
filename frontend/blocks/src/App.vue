@@ -5,18 +5,30 @@ import { ref } from "vue";
 
 const blocks = useBlockStore();
 
+// Modal triggering for creating a block
+const currentSideLength = ref(0.0);
+const showModal = ref(false);
+function toggleModal(): void {
+  showModal.value = !showModal.value;
+}
 function createBlock(sideLength: number): void {
   blocks.createBlock(sideLength);
   currentSideLength.value = 0.0;
   toggleModal();
 }
 
-const showModal = ref(false);
-function toggleModal(): void {
-  showModal.value = !showModal.value;
+// Modal triggering for deleting a block
+const currentBlockID = ref("");
+const showDeleteBlockModal = ref(false)
+function toggleDeleteBlockModal(): void {
+  showDeleteBlockModal.value = !showDeleteBlockModal.value;
+}
+function deleteBlock(blockID: string): void {
+  blocks.deleteBlock(blockID);
+  currentBlockID.value = "";
+  toggleDeleteBlockModal();
 }
 
-const currentSideLength = ref(0.0);
 </script>
 
 <template>
@@ -53,6 +65,8 @@ const currentSideLength = ref(0.0);
           ></div>
           <button
             class="btn btn-lg text-white font-bold rounded-xl bg-red-950 hover:bg-red-800 shadow-md shadow-red-800"
+            @click="toggleDeleteBlockModal"
+
           >
             Delete Block
           </button>
@@ -97,9 +111,10 @@ const currentSideLength = ref(0.0);
       </div>
     </div>
   </div>
+  <!-- Modal for creating blocks -->
   <div class="modal" :class="{ 'modal-open': showModal }">
     <div class="modal-box">
-      <h3 class="font-bold text-lg">Let's create a box!</h3>
+      <h3 class="font-bold text-lg">Create a box!</h3>
       <p class="py-4">Fill out the box features below and then click create.</p>
       <input
         type="number"
@@ -114,6 +129,28 @@ const currentSideLength = ref(0.0);
           @click="createBlock(currentSideLength)"
         >
           Create
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Modal for deleting blocks -->
+  <div class="modal" :class="{ 'modal-open': showDeleteBlockModal }">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Delete a box!</h3>
+      <p class="py-4">Select a box and then click delete.</p>
+      <input
+        type="text"
+        placeholder="Block ID"
+        class="input input-bordered input-md input-success w-full text-lg font-light"
+        v-model="currentBlockID"
+      />
+      <!-- <p>value is: {{ currentSideLength }}</p> -->
+      <div class="modal-action">
+        <button
+          class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
+          @click="deleteBlock(currentBlockID)"
+        >
+          Delete
         </button>
       </div>
     </div>

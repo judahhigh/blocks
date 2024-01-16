@@ -21,8 +21,8 @@ export const useBlockStore = defineStore("blocks", {
       const block: Block = { id: uuidv4(), sideLength: sideLength };
       this.blockList.push(block);
     },
-    removeBlock(blockId: string) {
-      this.blockList = this.blockList.filter((block) => block.id !== blockId);
+    deleteBlock(blockID: string) {
+      this.blockList = this.blockList.filter((block) => block.id !== blockID);
     },
   },
 });
