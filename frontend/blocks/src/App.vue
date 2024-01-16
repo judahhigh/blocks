@@ -19,7 +19,7 @@ function createBlock(sideLength: number): void {
 
 // Modal triggering for deleting a block
 const currentBlockID = ref("");
-const showDeleteBlockModal = ref(false)
+const showDeleteBlockModal = ref(false);
 function toggleDeleteBlockModal(): void {
   showDeleteBlockModal.value = !showDeleteBlockModal.value;
 }
@@ -28,7 +28,6 @@ function deleteBlock(blockID: string): void {
   currentBlockID.value = "";
   toggleDeleteBlockModal();
 }
-
 </script>
 
 <template>
@@ -66,7 +65,6 @@ function deleteBlock(blockID: string): void {
           <button
             class="btn btn-lg text-white font-bold rounded-xl bg-red-950 hover:bg-red-800 shadow-md shadow-red-800"
             @click="toggleDeleteBlockModal"
-
           >
             Delete Block
           </button>
@@ -124,12 +122,20 @@ function deleteBlock(blockID: string): void {
       />
       <!-- <p>value is: {{ currentSideLength }}</p> -->
       <div class="modal-action">
-        <button
-          class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
-          @click="createBlock(currentSideLength)"
-        >
-          Create
-        </button>
+        <div class="flex flex-row gap-4">
+          <button
+            class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
+            @click="createBlock(currentSideLength)"
+          >
+            Create
+          </button>
+          <button
+            class="btn rounded-xl border-0 bg-gray-800 hover:bg-gray-700 shadow-md shadow-gray-700"
+            @click="toggleModal()"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -146,12 +152,20 @@ function deleteBlock(blockID: string): void {
       />
       <!-- <p>value is: {{ currentSideLength }}</p> -->
       <div class="modal-action">
-        <button
-          class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
-          @click="deleteBlock(currentBlockID)"
-        >
-          Delete
-        </button>
+        <div class="flex flex-row gap-4">
+          <button
+            class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
+            @click="deleteBlock(currentBlockID)"
+          >
+            Delete
+          </button>
+          <button
+            class="btn rounded-xl border-0 bg-gray-800 hover:bg-gray-700 shadow-md shadow-gray-700"
+            @click="toggleDeleteBlockModal()"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   </div>
