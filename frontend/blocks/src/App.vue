@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useBlockStore } from "./stores/blocks";
-
 import { ref } from "vue";
+import { useBlockStore } from "./stores/blocks";
 
 const blocks = useBlockStore();
 
@@ -52,6 +51,15 @@ function updateBlock(blockID: string, blockSize: number): void {
   console.log(blockID, blockSize);
   blocks.updateBlock(blockID, blockSize);
   resetAndToggleUpdateBlockModal();
+  toggleUpdateBlockToast();
+}
+const showUpdateBlockToast = ref(false);
+function toggleUpdateBlockToast(): void {
+  showUpdateBlockToast.value = !showUpdateBlockToast.value;
+  setTimeout(
+    () => (showUpdateBlockToast.value = !showUpdateBlockToast.value),
+    1500
+  );
 }
 </script>
 
@@ -253,5 +261,9 @@ function updateBlock(blockID: string, blockSize: number): void {
       </div>
     </div>
   </div>
-  <!-- Modal for updating blocks -->
+  <div class="toast toast-top toast-end" v-if="showUpdateBlockToast">
+    <div class="alert alert-success">
+      <span>Block updated successfully</span>
+    </div>
+  </div>
 </template>
