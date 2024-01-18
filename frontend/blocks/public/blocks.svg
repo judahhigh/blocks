@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="121.547" cy="93.059" r="36.36" id="gradient-0" gradientTransform="matrix(17.355693, 7.660558, -4.897588, 11.161883, -1411.420631, -1714.607666)">
+      <stop offset="0" style="stop-color: rgb(100% 30.98% 7.451%)"/>
+      <stop offset="1" style="stop-color: rgb(64.158% 10.27% 0%)"/>
+    </radialGradient>
+  </defs>
+  <rect width="478.537" height="479.957" style="fill-rule: evenodd; paint-order: markers stroke; fill: url('#gradient-0'); stroke-width: 13px; stroke: rgb(103, 23, 0); transform-origin: 248.579px 248.975px;" rx="177.912" ry="177.912" y="8.996" x="9.311"/>
+  <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 150px; font-weight: 700; text-transform: capitalize; white-space: pre;" x="131.671" y="193.275" transform="matrix(2.4192299842834473, 0, 0, 2.7209830284118652, -197.80474853515625, -137.2188720703125)">B</text>
+</svg>
