@@ -260,7 +260,8 @@ function toggleUpdateBlockFailedToast(): void {
       <div class="modal-action">
         <div class="flex flex-row gap-4">
           <button
-            class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
+            class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700 disabled:bg-teal-900"
+            :disabled="currentUpdateBlockID.length === 0"
             @click="updateBlock(currentUpdateBlockID, currentUpdateBlockL)"
           >
             Update
