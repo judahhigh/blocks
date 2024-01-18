@@ -51,9 +51,11 @@ function updateBlock(blockID: string, blockSize: number): void {
   console.log(blockID, blockSize);
   const result = blocks.updateBlock(blockID, blockSize);
   resetAndToggleUpdateBlockModal();
-  console.log(result)
+  console.log(result);
   if (result === true) {
     toggleUpdateBlockToast();
+  } else {
+    toggleUpdateBlockFailedToast();
   }
 }
 const showUpdateBlockToast = ref(false);
@@ -61,6 +63,15 @@ function toggleUpdateBlockToast(): void {
   showUpdateBlockToast.value = !showUpdateBlockToast.value;
   setTimeout(
     () => (showUpdateBlockToast.value = !showUpdateBlockToast.value),
+    1500
+  );
+}
+const showUpdateBlockFailedToast = ref(false);
+function toggleUpdateBlockFailedToast(): void {
+  showUpdateBlockFailedToast.value = !showUpdateBlockFailedToast.value;
+  setTimeout(
+    () =>
+      (showUpdateBlockFailedToast.value = !showUpdateBlockFailedToast.value),
     1500
   );
 }
@@ -267,6 +278,11 @@ function toggleUpdateBlockToast(): void {
   <div class="toast toast-top toast-end" v-if="showUpdateBlockToast">
     <div class="alert alert-success">
       <span>Block updated successfully</span>
+    </div>
+  </div>
+  <div class="toast toast-top toast-end" v-if="showUpdateBlockFailedToast">
+    <div class="alert alert-error">
+      <span>Block update failed</span>
     </div>
   </div>
 </template>
