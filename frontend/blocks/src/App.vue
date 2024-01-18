@@ -36,6 +36,11 @@ const currentUpdateBlockL = ref(0.0);
 function toggleUpdateBlockModal(): void {
   showUpdateBlockModal.value = !showUpdateBlockModal.value;
 }
+function resetAndToggleUpdateBlockModal(): void {
+  currentUpdateBlockID.value = "";
+  currentUpdateBlockL.value = 0.0;
+  toggleUpdateBlockModal();
+}
 function onChangeUpdateBlockSelection(e: Event): void {
   const blockID = (e.target as HTMLInputElement).value;
   const block = blocks.blockList.find((block) => block.id === blockID);
@@ -46,7 +51,7 @@ function onChangeUpdateBlockSelection(e: Event): void {
 function updateBlock(blockID: string, blockSize: number): void {
   console.log(blockID, blockSize);
   blocks.updateBlock(blockID, blockSize);
-  toggleUpdateBlockModal();
+  resetAndToggleUpdateBlockModal();
 }
 </script>
 
@@ -93,7 +98,7 @@ function updateBlock(blockID: string, blockSize: number): void {
           ></div>
           <button
             class="btn btn-lg text-white font-bold rounded-xl bg-green-950 hover:bg-green-800 shadow-md shadow-green-800"
-            @click="toggleUpdateBlockModal"
+            @click="resetAndToggleUpdateBlockModal()"
           >
             Update Block
           </button>
@@ -215,12 +220,20 @@ function updateBlock(blockID: string, blockSize: number): void {
             </option>
           </select>
         </label>
-        <input
-          type="number"
-          placeholder="Side Length [m]"
-          class="input input-bordered input-md input-success w-full text-lg font-light"
-          v-model="currentUpdateBlockL"
-        />
+        <label class="form-control w-full">
+          <div class="label" v-if="currentUpdateBlockID.length > 0">
+            <span class="label-text"
+              >Adjust the side length of this block.</span
+            >
+          </div>
+          <input
+            v-if="currentUpdateBlockID.length > 0"
+            type="number"
+            placeholder="Side Length [m]"
+            class="input input-bordered input-md input-success w-full text-lg font-light"
+            v-model="currentUpdateBlockL"
+          />
+        </label>
       </div>
       <div class="modal-action">
         <div class="flex flex-row gap-4">
@@ -232,7 +245,7 @@ function updateBlock(blockID: string, blockSize: number): void {
           </button>
           <button
             class="btn rounded-xl border-0 bg-gray-800 hover:bg-gray-700 shadow-md shadow-gray-700"
-            @click="toggleUpdateBlockModal()"
+            @click="resetAndToggleUpdateBlockModal()"
           >
             Cancel
           </button>
