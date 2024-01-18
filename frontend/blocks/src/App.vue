@@ -78,7 +78,7 @@ function toggleUpdateBlockFailedToast(): void {
 </script>
 
 <template>
-  <div class="w-screen h-full bg-slate-950">
+  <div class="w-screen h-screen bg-slate-950">
     <p
       class="text-white text-center pt-10 bg-slate-900 text-6xl tracking-widest font-extrabold"
     >
@@ -98,7 +98,7 @@ function toggleUpdateBlockFailedToast(): void {
         <p class="text-white text-center text-3xl tracking-widest font-bold">
           Block Actions
         </p>
-        <div class="flex flex-row gap-6 justify-center align-middle">
+        <div class="flex flex-row flex-wrap gap-6 justify-center align-middle">
           <button
             class="btn btn-lg text-white font-bold rounded-xl bg-blue-950 hover:bg-blue-800 shadow-md shadow-blue-800"
             @click="toggleModal"
