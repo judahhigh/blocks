@@ -28,6 +28,26 @@ function deleteBlock(blockID: string): void {
   currentBlockID.value = "";
   toggleDeleteBlockModal();
 }
+
+// Modal triggering for updating a block
+const showUpdateBlockModal = ref(false);
+const currentUpdateBlockID = ref("");
+const currentUpdateBlockL = ref(0.0);
+function toggleUpdateBlockModal(): void {
+  showUpdateBlockModal.value = !showUpdateBlockModal.value;
+}
+function onChangeUpdateBlockSelection(e: Event): void {
+  const blockID = (e.target as HTMLInputElement).value;
+  const block = blocks.blockList.find((block) => block.id === blockID);
+  if (block) {
+    currentUpdateBlockL.value = block.sideLength;
+  }
+}
+function updateBlock(blockID: string, blockSize: number): void {
+  console.log(blockID, blockSize);
+  blocks.updateBlock(blockID, blockSize);
+  toggleUpdateBlockModal();
+}
 </script>
 
 <template>
@@ -51,7 +71,7 @@ function deleteBlock(blockID: string): void {
         <p class="text-white text-center text-3xl tracking-widest font-bold">
           Block Actions
         </p>
-        <div class="flex flex-row gap-4 justify-center align-middle">
+        <div class="flex flex-row gap-6 justify-center align-middle">
           <button
             class="btn btn-lg text-white font-bold rounded-xl bg-blue-950 hover:bg-blue-800 shadow-md shadow-blue-800"
             @click="toggleModal"
@@ -73,6 +93,7 @@ function deleteBlock(blockID: string): void {
           ></div>
           <button
             class="btn btn-lg text-white font-bold rounded-xl bg-green-950 hover:bg-green-800 shadow-md shadow-green-800"
+            @click="toggleUpdateBlockModal"
           >
             Update Block
           </button>
@@ -112,8 +133,10 @@ function deleteBlock(blockID: string): void {
   <!-- Modal for creating blocks -->
   <div class="modal" :class="{ 'modal-open': showModal }">
     <div class="modal-box">
-      <h3 class="font-bold text-lg">Create a box!</h3>
-      <p class="py-4">Fill out the box features below and then click create.</p>
+      <h3 class="font-bold text-lg">Create a block!</h3>
+      <p class="py-4">
+        Fill out the block features below and then click create.
+      </p>
       <input
         type="number"
         placeholder="Side Length [m]"
@@ -142,15 +165,14 @@ function deleteBlock(blockID: string): void {
   <!-- Modal for deleting blocks -->
   <div class="modal" :class="{ 'modal-open': showDeleteBlockModal }">
     <div class="modal-box">
-      <h3 class="font-bold text-lg">Delete a box!</h3>
-      <p class="py-4">Select a box and then click delete.</p>
+      <h3 class="font-bold text-lg">Delete a block!</h3>
+      <p class="py-4">Select a block and then click delete.</p>
       <input
         type="text"
         placeholder="Block ID"
         class="input input-bordered input-md input-success w-full text-lg font-light"
         v-model="currentBlockID"
       />
-      <!-- <p>value is: {{ currentSideLength }}</p> -->
       <div class="modal-action">
         <div class="flex flex-row gap-4">
           <button
@@ -169,4 +191,50 @@ function deleteBlock(blockID: string): void {
       </div>
     </div>
   </div>
+  <!-- Modal for updating blocks -->
+  <div class="modal" :class="{ 'modal-open': showUpdateBlockModal }">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Update a block!</h3>
+      <p class="py-4">
+        Select a block, update it's properties, and then click update.
+      </p>
+      <div class="flex flex-col gap-4">
+        <label class="form-control w-full">
+          <select
+            class="select select-bordered select-success"
+            v-model="currentUpdateBlockID"
+            @change="onChangeUpdateBlockSelection($event)"
+          >
+            <option disabled selected>Pick a block</option>
+            <option v-for="block in blocks.blockList">
+              {{ block.id }}
+            </option>
+          </select>
+        </label>
+        <input
+          type="number"
+          placeholder="Side Length [m]"
+          class="input input-bordered input-md input-success w-full text-lg font-light"
+          v-model="currentUpdateBlockL"
+        />
+      </div>
+      <div class="modal-action">
+        <div class="flex flex-row gap-4">
+          <button
+            class="btn rounded-xl border-0 bg-teal-800 hover:bg-teal-700 shadow-md shadow-teal-700"
+            @click="updateBlock(currentUpdateBlockID, currentUpdateBlockL)"
+          >
+            Update
+          </button>
+          <button
+            class="btn rounded-xl border-0 bg-gray-800 hover:bg-gray-700 shadow-md shadow-gray-700"
+            @click="toggleUpdateBlockModal()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal for updating blocks -->
 </template>

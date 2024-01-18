@@ -24,6 +24,23 @@ export const useBlockStore = defineStore("blocks", {
     deleteBlock(blockID: string) {
       this.blockList = this.blockList.filter((block) => block.id !== blockID);
     },
+    updateBlock(blockID: string, blockSize: number) {
+      let blockIndex = -1;
+      this.blockList.forEach((block, index) => {
+        if (block.id === blockID) {
+          blockIndex = index;
+        }
+      });
+      console.log(blockIndex);
+      console.log(this.blockList);
+      if (blockIndex >= 0) {
+        this.blockList.splice(blockIndex, 1, {
+          id: blockID,
+          sideLength: blockSize,
+        });
+        console.log(this.blockList);
+      }
+    },
   },
 });
 
