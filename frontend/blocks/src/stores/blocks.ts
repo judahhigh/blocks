@@ -24,13 +24,17 @@ export const useBlockStore = defineStore("blocks", {
     deleteBlock(blockID: string) {
       this.blockList = this.blockList.filter((block) => block.id !== blockID);
     },
-    updateBlock(blockID: string, blockSize: number) {
+    updateBlock(blockID: string, blockSize: number): boolean {
       let blockIndex = -1;
       this.blockList.forEach((block, index) => {
         if (block.id === blockID) {
           blockIndex = index;
         }
       });
+      // early return because the update failed since it couldn't find a matching block for some reason
+      if (blockIndex === -1) {
+        return false;
+      }
       console.log(blockIndex);
       console.log(this.blockList);
       if (blockIndex >= 0) {
@@ -40,6 +44,7 @@ export const useBlockStore = defineStore("blocks", {
         });
         console.log(this.blockList);
       }
+      return true;
     },
   },
 });

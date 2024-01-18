@@ -49,9 +49,12 @@ function onChangeUpdateBlockSelection(e: Event): void {
 }
 function updateBlock(blockID: string, blockSize: number): void {
   console.log(blockID, blockSize);
-  blocks.updateBlock(blockID, blockSize);
+  const result = blocks.updateBlock(blockID, blockSize);
   resetAndToggleUpdateBlockModal();
-  toggleUpdateBlockToast();
+  console.log(result)
+  if (result === true) {
+    toggleUpdateBlockToast();
+  }
 }
 const showUpdateBlockToast = ref(false);
 function toggleUpdateBlockToast(): void {
