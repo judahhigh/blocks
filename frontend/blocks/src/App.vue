@@ -195,10 +195,14 @@ function updateBlock(blockID: string, blockSize: number): void {
   <div class="modal" :class="{ 'modal-open': showUpdateBlockModal }">
     <div class="modal-box">
       <h3 class="font-bold text-lg">Update a block!</h3>
-      <p class="py-4">
+      <p v-if="blocks.blockList.length > 0" class="py-4">
         Select a block, update it's properties, and then click update.
       </p>
-      <div class="flex flex-col gap-4">
+      <p v-else class="py-4">
+        You do not currently have any blocks to update! Please create a block or
+        two and then try to update one.
+      </p>
+      <div v-if="blocks.blockList.length > 0" class="flex flex-col gap-4">
         <label class="form-control w-full">
           <select
             class="select select-bordered select-success"
